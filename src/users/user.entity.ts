@@ -1,39 +1,25 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { ApiProperty } from "@nestjs/swagger";
-import { Post } from "./post.entity";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
+import { Post } from '../posts/post.entity';
 
 @Entity()
 export class User {
-    @ApiProperty({
-      example:1,
-    description:'The ID of the user'})
-    @PrimaryGeneratedColumn()
-    id: number;
+  @ApiProperty({ example: 1, description: 'The ID of the user' })
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @ApiProperty({
-      example:'John Doe',
-      description:'The username of the user'
-    })
-    @Column({unique:true})
-    username: string;
-    
-    @ApiProperty({
-      example:'password123',
-      description:'The password of the user'
-    })
-    @Column()
-    password: string;
-    
-    @ApiProperty({
-      example:'user',
-      description:'The role of the user'
-    })
-    @Column()
-    role: string;
-    
-    @ApiProperty()
-    @OneToMany(type => Post, post => post.user)
-    posts: Post[];
+  @ApiProperty({ example: 'john.doe', description: 'The username of the user' })
+  @Column({ unique: true })
+  username: string;
 
-    @OneToMany(type => Post, post => post.user)
+  @ApiProperty({ example: 'password123', description: 'The password of the user' })
+  @Column()
+  password: string;
+
+  @ApiProperty({ example: 'user', description: 'The role of the user' })
+  @Column()
+  role: string;
+
+  @OneToMany(() => Post, post => post.user)
+  posts: Post[];
 }
